@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body{
+				margin : auto;
+			}
+			#container{
+				background-color : rgba(124,40,16,0.8);
+				width : 600px;
+				height: 600px;
+				margin-top: 2%;
+				margin-left: 200px;
+				border-radius : 10px;
+				border : 4px solid rgba(12,13,14,1);
+			}
+
+			nav{
+				background-color: rgba(23,24,24,1);
+				width: 90%;
+				height: 10%;
+				margin-top: 2%;
+				margin-left: 5%;
+				color: white;
+				font-size: 200%;
+				text-align: center;
+                float: left;
+			}
+
+			video{
+				background-color: white;
+				width: 90%;
+				height: 70%;
+				margin-top: 2%;
+				margin-left: 5%;
+				float: left;
+			}
+
+			#barraRep{
+				background-color: transparent;
+				width: 80%;
+				height: 8%;
+				margin-top: 75%;
+				margin-left: 10%;
+				position: relative;
+			}
+
+			#barra{
+				background-color: black;
+				width: 90%;
+				height: 10%;
+				margin: -7% 5% 0% 5%;
+				display : none;
+				float: left;
+			}
+
+			#botones{
+				background-color: black;
+				width : 90%;
+				height: 10%;
+				margin-top: 2%;
+				margin-left: 5%;
+				float: left;
+			}
+			button{
+				background: transparent;
+				width: 10%;
+				height: 80%;
+				color : white;
+				margin-top: 1%;
+				margin-left: 4%;
+				float : left;
+			}
+
+			aside{
+				background-color: rgba(17,18,18,0.5);
+				width: 20%;
+				height: 100%;
+				color : black;
+				margin-left: 8%;
+				float: left;
+			}
+
+			#slider{
+				background-color: white;
+				width: 95%;
+				height: 20%;
+				margin-top: 3%;
+				float: left;
+			}
+
+			#tiempo{
+				background-color: white;
+				width: 80%;
+				height: 50%;
+				margin-top: 5%;
+				margin-right: 10%;
+				float: right;
+			}
+
+			.cuadro{
+				background-color: black;
+				width : 30%;
+				height: 90%;
+				margin-top: 2%;
+				margin-left: 3%;
+				color : white;
+				text-align: center;
+				float: left;
+			}
+
+		</style>	
+		<title> video </title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale = 1.0">
+	</head>
+	<body>
+		<div id="container" onmouseover="moverVideo()" onmouseout="escoBarrepro();">
+			<nav>
+				Pelis y mas pelis.com
+			</nav>	
+			<video onclick="play();"  id="badboys3" src="call.mov">			
+			</video>
+			<div id="barraRep">
+				<div id="barra">
+                	
+				</div>	
+		    </div>
+			<div id="botones">
+               <button id="play" onmouseover="adeBoton('play');" onmouseout="afuBoton('play');" onclick="play('play');">Play</button>
+               <button id="stop" onmouseover="adeBoton('stop');" onmouseout="afuBoton('stop');" onclick="stop('stop');">stop</button>
+               <button id="vol+" onmouseover="adeBoton('vol+');" onmouseout="afuBoton('vol+');"onclick="subirV();">Vol +</button>
+               <button id="vol-" onmouseover="adeBoton('vol-');" onmouseout="afuBoton('vol-');" onclick="bajarV();">Vol -</button>
+               <button id="mute" onmouseover="adeBoton('mute');" onmouseout="afuBoton('mute');"onclick="mute();">mute</button>
+               <aside id="izquierdo">
+                	<div id="slider">
+                	</div>
+                	<div id="tiempo">
+                		<div class="cuadro" id="hora">
+                		</div>
+                		<div class="cuadro" id="minutos">
+                		</div>
+                		<div class="cuadro" id="segundos">
+                		</div>	
+                	</div>	
+               </aside>
+			</div>	
+		</div>	
+        <script>
+
+            var segundos = 0;
+        	var minutos = 0;
+        	var horas = 0;
+        	var volumen = 0.5;
+        	var silencio = 0;
+        	var tiempoRep = document.getElementById("badboys3");
+
+        	tiempoRep.addEventListener("timeupdate",function(){
+        		
+        		var tiempoActual = parseInt(tiempoRep.currentTime);
+        		document.getElementById("segundos").innerHTML = segundos;
+        		document.getElementById("minutos").innerHTML = minutos;
+        		document.getElementById("hora").innerHTML = horas;       		
+       		
+        		if(tiempoActual < 59){
+        			segundos = tiempoActual;
+        		} else if(tiempoRep.ended){
+                    segundos = 0;
+        			minutos = 0;
+        		} else	if(tiempoActual > 59) {
+        			segundos = (tiempoActual - (60*minutos));
+        		} 
+
+        		if((tiempoActual % 60 == 0)&&(segundos != 0) ){
+        			minutos = minutos + 1;
+        	    } 
+            },true);
+
+            function adeBoton(dato){
+            	document.getElementById(dato).style.backgroundColor = "rgba(240,98,68,0.9)";
+            }
+
+            function afuBoton(dato){
+                document.getElementById(dato).style.backgroundColor = "transparent";
+            }
+
+            function moverVideo(){
+            	document.getElementById("barra").style.display = "block";
+            }
+
+            function escoBarrepro(){
+            	document.getElementById("barra").style.display = "none";
+            }
+
+        	function play(){
+        		document.getElementById("badboys3").play();
+            }
+
+            function stop(){
+            	document.getElementById("badboys3").pause();
+            }
+
+            function subirV(){
+            	//document.getElementById("badboys3").medio.volume = 1;
+            	 tiempoRep.muted = false;
+            	 tiempoRep.volume = volumen;
+            	 if(volumen < 0.9){ 
+            	 	volumen = volumen + 0.1;
+            	 } else if(volumen >= 1) {
+            	 	volumen = 1;
+            	 }
+            	 console.log(tiempoRep.volume);          	
+            }
+            
+            function bajarV(){
+            	//document.getElementById("badboys3").medio.volume = 1;
+            	 tiempoRep.muted = false;
+            	 tiempoRep.volume = volumen; 
+            	 if(volumen > 0.1){
+            	 	volumen = volumen - 0.1;
+            	 } else if(volumen <= 0){
+            	 	volumen = 0;
+            	 }	
+            	 console.log(tiempoRep.volume);          	
+            }
+            function mute(){
+            	if(silencio == 0){
+            		tiempoRep.muted = true;
+            		silencio++;
+            	} else {
+                	tiempoRep.muted = false;
+                	silencio = 0;
+            	}
+            }
+        </script> 	
+
+	</body>
+</html>

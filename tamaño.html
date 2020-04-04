@@ -1,0 +1,171 @@
+<DOCTYPE html>
+<html>
+	<head>
+		<style>
+			 #container{
+			 	width : 500px;
+			 	height: 450px;
+			 	margin-top: 50px;
+			 	margin-left: 450px;
+			 	border: 4px solid rgba(216,56,21,0.9);
+			 	float : left;
+			 }
+             img{
+             	width: 50%;
+             	height : 40%;
+             	margin : 0 auto;
+             	display: block;
+             }
+             #conBotones{
+             	width : 500px;
+			 	height: 50px;
+			 	margin-top: 10px;
+			 	margin-left: 450px;
+			 	border: 2px solid black;
+			 	float : left;
+             }
+
+             #zoom{
+             	background-color: rgba(216,56,21,0.9);
+             	width : 70%;
+             	height: 100%;
+             	float : left;
+             }
+
+             #inputs{
+             	width: 30%;
+             	height: 100%;
+             	float: left;
+             }
+
+             #boton1{
+             	background-color : rgba(216,56,21,0.9);
+             	width: 100%;
+             	height: 50%;
+             	float: left;
+             }
+             #boton2{
+             	background-color : rgba(216,56,21,0.9);
+             	width: 100%;
+             	height: 50%;
+             	float: left;
+             }
+
+             #inpAncho{
+                width: 40%;
+                height: 90%;
+                margin-right: 5%;
+                float: right;
+                
+             }
+
+             #inpLargo{
+             	width: 40%;
+             	height: 90%;
+             	margin-right: 5%;
+                float: right;
+             }
+
+             button{
+             	background-color : transparent;
+             	width : 40%;
+             	height: 90%;
+             	color : white;
+             	font-size : 100%;
+             	margin-top: 0.5%;
+             	margin-left: 4%;
+             	float : left;
+             }
+		</style>
+		<title> cambiar imagen </title>
+		<meta charset = "UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale = 1.0">
+	</head>
+	<body>
+		<div id="container">
+			<div id="imagen">
+				<img id="ironMan" src="ironman.jpeg">
+			</div>
+		</div>	
+		<div id="conBotones">
+				<div id="zoom">
+					<button onclick="zoomM();">zoom +</button>
+					<button onclick="zoomMe();">zoom -</button>
+				</div>	
+				<div id="inputs">
+					<div id="boton1">
+						<button onclick="ancho();">ancho</button>
+						<input id="inpAncho" type="text" name="ancho">
+				    </div>
+				    <div id="boton2">
+						<button onclick="largo();">largo</button>
+						<input id="inpLargo" type="text" name="largo">	
+					</div>				
+				</div>	
+		</div>	
+
+		<script>
+			var width = 250;
+			var height = 200;
+			var contador = 0 ;
+			var time;
+            function zoomM(){
+            	timeMore = setInterval(zoomMas,100);
+            }
+
+            function zoomMe(){
+            	timeLess = setInterval(zoomMenos,100);
+            }
+
+			function zoomMas(){
+				contador++;
+				console.log(contador);
+				width += 10;
+				height += 10;
+				var camWidth = width + "px";
+				var camHeight = height + "px"; 
+				
+				document.getElementById("ironMan").style.width = camWidth;
+				document.getElementById("ironMan").style.height = camHeight; 
+				console.log(camWidth);
+				console.log(camHeight);				
+				
+				if(contador == 12){
+                	clearInterval(timeMore);
+                	contador = 0;	
+                	console.log(contador);			
+                }			
+			}
+
+			function zoomMenos(){
+				contador++;
+				width -= 10;
+				height -= 10 ;
+				var camWidth = width + "px";
+				var camHeight = height + "px"; 
+				document.getElementById("ironMan").style.width = camWidth;
+				document.getElementById("ironMan").style.height = camHeight;				 
+				console.log(camWidth);
+				console.log(camHeight);
+                
+                if(contador == 12){
+                	clearInterval(timeLess);
+                	contador = 0;				
+                }	
+			}
+
+			function ancho(){
+				let ancho = document.getElementById("inpAncho").value;
+				document.getElementById("ironMan").style.width = ancho;
+
+			}
+
+			function largo(){
+                let largo = document.getElementById("inpLargo").value;
+				document.getElementById("ironMan").style.height = largo;
+			}
+
+
+		</script>	
+	</body>
+</html>

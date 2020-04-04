@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			#container{
+				background-color : rgba(123,240,23,0.2);
+				width : 1600px;
+				height : 400px;
+			}
+
+			#botones {
+				background-color: rgba(12,13,14,0.1);
+				width: 800px;
+				height: 50px;
+				margin-top: 10px;
+				margin-left: 350px;
+			}
+
+            button{
+            	background-color : transparent;
+            	width: 20%;
+            	height: 100%;
+            	margin-left: 3%;
+            	float: left;
+            }
+
+            #cajaBorrada {
+            	width : 5%;
+            	height: 50%;
+            	margin-top: 1%;
+            	margin-left: 1.2%;
+            	float : left;
+            }
+		</style>
+		<title> agrega y elimina div </title>
+		<meta charset = "UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale = 1.0">
+	</head>
+	<body>
+		<div id="container">
+		</div>
+		<div id="botones">
+			<button onclick="crear();">Crear</button>
+			<button onclick="borrar();">eliminar</button>
+			<button onclick="eliminarPar();">eliminar par</button>
+			<button onclick="eliminarEsp();">eliminar esp</button>
+			<input id="cajaBorrada" type="text" name="contBorrar">
+	    </div>
+		<script>
+			var numeroCon = 0
+			let elemento = document.createElement("div");
+			
+			function crear(){
+				numeroCon++;
+				var id = "id" + numeroCon;
+            	let elemento = document.createElement("div");
+            	let contenido = document.createTextNode(`${numeroCon}`);
+            	elemento.appendChild(contenido);
+            	document.getElementById("container").appendChild(elemento);
+            	elemento.setAttribute("id",id);
+                
+                document.getElementById(id).style.backgroundColor = "rgba(123,145,234,0.4)";
+                document.getElementById(id).style.width = "100px";
+                document.getElementById(id).style.height = "100px";
+                document.getElementById(id).style.color = "rgba(23,45,23,0.8)";
+                document.getElementById(id).style.fontSize = "32px";
+                document.getElementById(id).style.marginLeft = "20px";
+                document.getElementById(id).style.marginTop = "10px";
+                document.getElementById(id).style.float = "left";
+
+			}
+
+			function borrar(){
+            	document.getElementById("container").innerHTML = "";
+            	numeroCon = 0;
+			}
+
+			function eliminarPar(){
+				for(i = 1 ; i<numeroCon ; i++){
+					if( i % 2 == 0){
+						let id = "id" + i;
+				    	let contHtml =  document.getElementById(id);
+						contHtml.remove();
+					}	
+                }
+			}
+
+			function eliminarEsp(){
+                        let valor = document.getElementById("cajaBorrada").value;
+                        let id = "id" + valor;
+                        console.log("remover");
+				    	let contHtml =  document.getElementById(id);
+						contHtml.remove();
+			}
+			
+		</script>	
+	</body>
+</html>
